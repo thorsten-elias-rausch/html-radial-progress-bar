@@ -1,0 +1,42 @@
+* {
+    --progress: 0.4;
+    --portion: 0.75;
+    --rotation: 135deg;
+    --circle-size: 400px;
+    --circle-thickness: 40px;
+    --fg-color: #007fff;
+    --bg-color: #bfbfbf;
+
+    --diameter: calc(var(--circle-size) - var(--circle-thickness));
+    --circumference: calc(var(--diameter) * pi);
+    --fg-stroke-length: calc(var(--circumference) * var(--portion) * var(--progress));
+    --fg-stroke-gap: calc(var(--circumference) - var(--fg-stroke-length));
+    --bg-stroke-length: calc(var(--circumference) * var(--portion));
+    --bg-stroke-gap: calc(var(--circumference) - var(--bg-stroke-length));
+}
+
+svg.radial-progress circle {
+    /*noinspection CssUnknownProperty*/
+    cx: calc(var(--circle-size) / 2);
+    /*noinspection CssUnknownProperty*/
+    cy: calc(var(--circle-size) / 2);
+    /*noinspection CssUnknownProperty*/
+    r: calc(var(--diameter) / 2);
+
+    stroke-width: var(--circle-thickness);
+    stroke-linecap: butt;
+    fill: none;
+
+    transform-origin: calc(var(--circle-size) / 2) calc(var(--circle-size) / 2);
+    transform: rotate(var(--rotation));
+}
+
+svg.radial-progress > circle.radial-progress-fg {
+    stroke: var(--fg-color);
+    stroke-dasharray: var(--fg-stroke-length) var(--fg-stroke-gap);
+}
+
+svg.radial-progress > circle.radial-progress-bg {
+    stroke: var(--bg-color);
+    stroke-dasharray: var(--bg-stroke-length) var(--bg-stroke-gap);
+}
